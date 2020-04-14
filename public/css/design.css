@@ -1,0 +1,24 @@
+.col-sm-1{
+    width: 10% !important;
+}
+
+.col-sm-3{
+    width: 25% !important;
+}
+
+.col-sm-4{
+    width: 33.33% !important;
+}
+
+.marginBottom{
+    margin-bottom: 30px;
+}
+
+@media(max-width: 400px){
+    .scadere::before{
+        margin-left: 49.6%;
+    }
+    h4{
+        font-size: 1.2rem !important;
+    }
+}
