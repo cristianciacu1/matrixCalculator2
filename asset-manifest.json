@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/matrixCalculator2/static/css/main.86155591.chunk.css",
-    "main.js": "/matrixCalculator2/static/js/main.517d1217.chunk.js",
-    "main.js.map": "/matrixCalculator2/static/js/main.517d1217.chunk.js.map",
+    "main.js": "/matrixCalculator2/static/js/main.cf922735.chunk.js",
+    "main.js.map": "/matrixCalculator2/static/js/main.cf922735.chunk.js.map",
     "runtime-main.js": "/matrixCalculator2/static/js/runtime-main.19803c46.js",
     "runtime-main.js.map": "/matrixCalculator2/static/js/runtime-main.19803c46.js.map",
     "static/js/2.55a45dda.chunk.js": "/matrixCalculator2/static/js/2.55a45dda.chunk.js",
     "static/js/2.55a45dda.chunk.js.map": "/matrixCalculator2/static/js/2.55a45dda.chunk.js.map",
     "index.html": "/matrixCalculator2/index.html",
-    "precache-manifest.8d4ca542d70f4e01512ef67caf38ca98.js": "/matrixCalculator2/precache-manifest.8d4ca542d70f4e01512ef67caf38ca98.js",
+    "precache-manifest.e54a03f161face65f9661b2020e7e75e.js": "/matrixCalculator2/precache-manifest.e54a03f161face65f9661b2020e7e75e.js",
     "service-worker.js": "/matrixCalculator2/service-worker.js",
     "static/css/main.86155591.chunk.css.map": "/matrixCalculator2/static/css/main.86155591.chunk.css.map",
     "static/js/2.55a45dda.chunk.js.LICENSE.txt": "/matrixCalculator2/static/js/2.55a45dda.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.19803c46.js",
     "static/js/2.55a45dda.chunk.js",
     "static/css/main.86155591.chunk.css",
-    "static/js/main.517d1217.chunk.js"
+    "static/js/main.cf922735.chunk.js"
   ]
 }

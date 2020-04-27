@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/matrixCalculator2/precache-manifest.8d4ca542d70f4e01512ef67caf38ca98.js"
+  "/matrixCalculator2/precache-manifest.e54a03f161face65f9661b2020e7e75e.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ae25a2184f629fd4060cab0339f59836",
+    "revision": "1f73cdd12bb094390358df0e78300c61",
     "url": "/matrixCalculator2/index.html"
   },
   {
-    "revision": "d884bdd5e61c1356ac29",
+    "revision": "ff9cb48cad1213cc2cb8",
     "url": "/matrixCalculator2/static/css/main.86155591.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/matrixCalculator2/static/js/2.55a45dda.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d884bdd5e61c1356ac29",
-    "url": "/matrixCalculator2/static/js/main.517d1217.chunk.js"
+    "revision": "ff9cb48cad1213cc2cb8",
+    "url": "/matrixCalculator2/static/js/main.cf922735.chunk.js"
   },
   {
     "revision": "2a9bd6d66f796ca5c30f",
