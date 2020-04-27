@@ -1,17 +1,17 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-function AfisareRezultat(props){
+function Afisare(props){
 
     let valori = [];
         
-    for(let i=0;i<props.matrice.getLungime();i++){
+    for(var i=0;i<props.lungime;i++){
         let valori2 = [];
-        for(let j=0;j<props.matrice.getLungime();j++){
+        for(var j=0;j<props.matrice[i].length;j++){
             valori2.push(
-                <Col md={1} sm={1} key={j} style={{marginRight: '10px'}}>
-                    <span key={j} >
-                        {props.matrice.getValue(i,j)}
+                <Col md={1} sm={1} key={j}>
+                    <span key={j}>
+                        {props.matrice[i][j]}
                     </span> 
                 </Col>
             )
@@ -24,4 +24,4 @@ function AfisareRezultat(props){
     )
 }
 
-export default AfisareRezultat;
+export default Afisare;

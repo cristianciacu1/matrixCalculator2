@@ -2,21 +2,41 @@ import React from 'react';
 
 export default class Matrix extends React.Component{
 
-    constructor(arraySize, index, props){
+    constructor(rows, cols, index, props){
         super(props);
 
         this.matrice = [];
 
-        for(let i=0;i<arraySize;i++){
+        for(let i=0;i<rows;i++){
             this.matrice[i]= [];
-            for(let j=0;j<arraySize;j++){
+            for(let j=0;j<cols;j++){
                 this.matrice[i][j]=0;
             }
         }
 
         this.index = index;
 
-        this.size = arraySize;
+        if(rows === cols){
+            this.size = rows;
+        }
+
+        this.rows = rows;
+        this.cols = cols;
+
+        //console.log(this.rows, this.cols);
+
+    }
+
+    definireMatriceCuOColoana(){
+        for(let i=0;i<this.size;i++){
+            this.matrice[i].length=1;
+        }
+    }
+
+    schimbareColoana(matricus, j){
+        for(let i=0;i<this.size;i++){
+            this.matrice[i][j] = matricus[i][0]
+        }
     }
 
     setValoare(i, j, valoare){
@@ -62,6 +82,17 @@ export default class Matrix extends React.Component{
         this.matrice.length = this.size;
     }
 
+    copiereMatrice(aux){
+        //console.log(aux);
+        this.size = aux.length;
+        for(let i=0;i<this.size;i++){
+            for(let j=0;j<aux[i].length;j++){
+                this.matrice[i][j] = aux[i][j];
+            }
+        }
+        //console.log(this.matrice);
+    }
+
     copiere(aux){
         if(aux.getLungime() === this.size){
             for(let i=0;i<this.size;i++){
@@ -80,7 +111,7 @@ export default class Matrix extends React.Component{
 
     adunare(aux){
         if(aux.getLungime() === this.size){
-            let matrice3 = new Matrix(this.size, 3);
+            let matrice3 = new Matrix(this.size, this.size, 3);
 
             for(let i=0;i<this.size;i++){
                 for(let j=0;j<this.size;j++){
@@ -98,12 +129,12 @@ export default class Matrix extends React.Component{
 
     scadere(aux){
         if(aux.getLungime() === this.size){
-            let matrice3 = new Matrix(this.size, 3);
+            let matrice3 = new Matrix(this.size, this.size, 3);
 
             for(let i=0;i<this.size;i++){
                 for(let j=0;j<this.size;j++){
                     let x = Number(this.getValue(i,j)) - Number(aux.getValue(i,j));
-                    matrice3.setValoare(i, j, x);
+                    matrice3.setValoare(i, j, x.toFixed(2));
                 }
             }
 
@@ -117,12 +148,12 @@ export default class Matrix extends React.Component{
 
     inmultire(aux){
         if(aux.getLungime() === this.size){
-            let matrice3 = new Matrix(this.size, 3);
+            let matrice3 = new Matrix(this.size, this.size, 3);
 
             for(let i=0;i<this.size;i++){
                 for(let j=0;j<this.size;j++){
                     let x = Number(this.getValue(i,j)) * Number(aux.getValue(i,j));
-                    matrice3.setValoare(i, j, x);
+                    matrice3.setValoare(i, j, x.toFixed(2));
                 }
             }
 
@@ -135,12 +166,12 @@ export default class Matrix extends React.Component{
     }
 
     inmultireCuAlfa(alfa){
-        let matrice3 = new Matrix(this.size, 3);
+        let matrice3 = new Matrix(this.size, this.size, 3);
 
         for(let i=0;i<this.size;i++){
             for(let j=0;j<this.size;j++){
                 var x = Number(this.getValue(i,j)) * Number(alfa);
-                matrice3.setValoare(i, j, x);
+                matrice3.setValoare(i, j, x.toFixed(2));
             }
         }
         return matrice3;
@@ -148,12 +179,12 @@ export default class Matrix extends React.Component{
 
     impartire(aux){
         if(aux.getLungime() === this.size){
-            let matrice3 = new Matrix(this.size, 3);
+            let matrice3 = new Matrix(this.size, this.size, 3);
 
             for(let i=0;i<this.size;i++){
                 for(let j=0;j<this.size;j++){
                     let x = Number(this.getValue(i,j)) / Number(aux.getValue(i,j));
-                    matrice3.setValoare(i, j, x);
+                    matrice3.setValoare(i, j, x.toFixed(2));
                 }
             }
 
@@ -201,8 +232,6 @@ export default class Matrix extends React.Component{
 
         this.creareMatrice(temp, this.size);
 
-        console.log(temp);
-
         var sign = 1;
 
         for(let f=0;f<n;f++){
@@ -214,7 +243,6 @@ export default class Matrix extends React.Component{
     }
 
     calcDeterminant(){
-        console.log(this.size);
         let x = this.calculareDeterminant(this.matrice, this.size);
         return x;
     }
@@ -256,17 +284,128 @@ export default class Matrix extends React.Component{
         
         this.adjoint(this.matrice, adj);
 
-        matrice3 = new Matrix(this.size, 3);
+        matrice3 = new Matrix(this.size, this.size, 3);
 
         for(let i=0;i<this.size;i++){
             for(let j=0;j<this.size;j++){
                 var hatz = Number(adj[i][j])/Number(det);
-                matrice3.setValoare(i,j,hatz);
+                matrice3.setValoare(i,j,hatz.toFixed(2));
             }
         }
 
         return matrice3;
 
+    }
+
+    swap(matrice, row1, row2, col){
+        for(let i=0;i<col;i++){
+            let temp = matrice[row1][i];
+            matrice[row1][i] = matrice[row2][i];
+            matrice[row2][i] = temp;
+        }
+    }
+
+    // calcRang() {
+
+    //     //console.log(this.rows, this.cols);
+
+    //     var rang = this.cols;
+
+    //     let matriceAux = new Array(this.rows);
+
+    //     for(let i=0;i<this.rows;i++){
+    //         matriceAux[i] = [];
+    //         for(let j=0;j<this.cols;j++){
+    //             matriceAux[i][j] = this.matrice[i][j];
+    //         }
+    //     }
+
+    //     for(let row=0; row < rang; row++){
+    //         if(matriceAux[row][row]){
+    //             for(let col=0; col < this.rows; col++){
+    //                 if(col!==row){
+    //                     var mult = Number(matriceAux[col][row]) / Number(matriceAux[row][row]);
+    //                     for(let i=0;i<rang;i++){
+    //                         matriceAux[col][i] -= mult * matriceAux[row][i];
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         else{
+    //             var reduce = true;
+    //             for(let i=row+1; i<this.rows; i++){
+    //                 if(matriceAux[i][row]){
+    //                     this.swap(matriceAux, row, i, rang);
+    //                     reduce = false;
+    //                     break;
+    //                 }
+    //             }
+    //             if(reduce){
+    //                 rang--;
+    //                 for(let i=0; i<this.rows; i++){
+    //                     matriceAux[i][row] = matriceAux[i][rang];
+    //                 }
+    //             }
+    //             row--;
+    //         }
+    //     }
+    //     return rang;
+    // }
+
+    calculareRang = (matrice) => {
+
+        let n = this.rows;
+        let m = this.cols;
+
+        var rank = 0;
+        var row_selected = new Array(50).fill(false);
+
+        for(let i=0;i < m; i++){
+            let j;
+            for(j=0;j<n;j++){
+                var x = matrice[j][i];
+                if(x<0)
+                    x *= -1;
+                if(!row_selected[j] && (x > 0.000001))
+                    break;
+            }
+
+            if(j!==n){
+                rank++;
+                row_selected[j] = true;
+                for(let p=i+1; p < m; p++){
+                    matrice[j][p] /= matrice[j][i];
+                }
+                for(let k=0; k < n; k++){
+                    var x = matrice[k][i];
+                    if(x < 0)
+                        x*=-1;
+                    if(k!==j && x > 0.000001){
+                        for(let p=i+1; p<m; p++){
+                            matrice[k][p] -= matrice[j][p] * matrice[k][i];
+                        }
+                    }
+                }
+            }
+        }
+        return rank;
+    }
+
+    swapMatrice(matriceAux){
+        matriceAux.length = this.matrice.length;
+        for(let i=0;i<this.matrice.length;i++){
+            matriceAux[i] = [];
+            for(let j=0;j<this.matrice[i].length;j++){
+                matriceAux[i][j] = this.matrice[i][j];
+            }
+        }
+    }
+
+    calcRang = () => {
+        let matrice2 = [];
+        this.swapMatrice(matrice2);
+        var x = this.calculareRang(matrice2);
+        return x;
     }
 
 }

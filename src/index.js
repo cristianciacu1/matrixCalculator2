@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import * as Sentry from '@sentry/browser';
+
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
+
+import LayoutSisteme from './sisteme/layoutSisteme';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Router>
+      <div>
+        <Route exact path="/matrixCalculator2" component={App} />
+        <Route path="/matrixCalculator2/sisteme/" component={LayoutSisteme} />
+      </div>
+    </Router>,
   document.getElementById('root')
 );
 

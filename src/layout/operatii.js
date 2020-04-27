@@ -1,6 +1,10 @@
 import React from 'react';
 import AfisareRezultat from './afisareRezultat';
 
+import '../putinCSS/css.css';
+
+import {Link} from 'react-router-dom';
+
 import { Row, Col, Button} from 'react-bootstrap';
 
 export default class Operatii extends React.Component{
@@ -16,7 +20,7 @@ export default class Operatii extends React.Component{
                     <br />
                     <div>
                         <Button variant="light" onClick={this.props.handleInmultireCuAlfaA} style={{marginBottom: '5px', marginRight: '10px'}}>Inmultire cu</Button>
-                        <input onChange={this.props.setAlfa} className="col-md-1" type="text" placeholder={this.props.getPlaceHolder()} />
+                        <input onChange={this.props.setAlfa} className="col-md-1 col-sm-5" type="text" placeholder={this.props.getPlaceHolder()} />
                     </div>
                 </div>
                 <div className="operatiiBasicPlus" style={{marginTop: '30px'}}>
@@ -26,6 +30,13 @@ export default class Operatii extends React.Component{
                     <br />
                     <Button variant="light" onClick={this.props.handleInversaA} style={{marginBottom: '5px'}}>Inversa A</Button>{' '}
                     <Button variant="light" onClick={this.props.handleInversaB} style={{marginBottom: '5px'}}>Inversa B</Button>
+                </div>
+                <div className="operatiiPremium" style={{marginTop: '30px'}}>
+                    <h3 style={{marginBottom: '20px'}}>Operatii PREMIUM</h3>
+                    <Button variant="light" style={{marginBottom: '5px'}}><Link to="sisteme" style={{color: "black"}}>Cramer</Link></Button>
+                    <br />
+                    <Button variant="light" onClick={this.props.handleRangA} style={{marginBottom: '5px'}}>Rang A</Button>{' '}
+                    <Button variant="light" onClick={this.props.handleRangB} style={{marginBottom: '5px'}}>Rang B</Button>
                 </div>
                 <div className="results" style={{marginTop: '30px'}}>
                     <Row className="justify-content-center">
@@ -42,83 +53,77 @@ export default class Operatii extends React.Component{
                             <h4 className="text-center">C</h4>
                         </Col>
                     </Row>
-                    {this.props.rezultate.map((item, index2) => 
-                        <Row className="justify-content-center" key={index2} style={{borderBottom: '1px solid black', marginTop: '20px'}}>
-                            {item.map((item2, index) => {
-                                if(index===1){
-                                    return(
-                                        <Col md={3} sm={4} key={index} className="marginBottom">
+                    {this.props.rezultate.map((item, index) => {
+                        if(item.semn === '+' || item.semn === '-' || item.semn === '*' || item.semn === '/'){
+                            return(
+                                <Row className="justify-content-center" key={index} style={{borderBottom: '1px solid black', marginTop: '20px'}}>
+                                    <Col md={3} sm={4} className="marginBottom">
+                                        <AfisareRezultat matrice={item.matricea} />
+                                    </Col>
+                                    <Col md={3} sm={4} className="marginBottom">
+                                        <Row className="justify-content-center">
+                                            <span>{item.semn}</span>
+                                        </Row>
+                                    </Col>
+                                    <Col md={3} sm={4} className="marginBottom">
+                                        <AfisareRezultat matrice={item.matriceb} />
+                                    </Col>
+                                    <Col md={3} sm={4} className="marginBottom">
+                                        <AfisareRezultat matrice={item.matricec} />
+                                    </Col>
+                                </Row>
+                            )
+                        }
+                        if(item.semn === 'inmultire cu alfa' || item.semn === 'determinant' || item.semn === 'inversa' || item.semn === 'rang'){
+                            if(item.semn === 'inmultire cu alfa' || item.semn === 'inversa'){
+                                return(
+                                    <Row className="justify-content-center" key={index} style={{borderBottom: '1px solid black', marginTop: '20px'}}>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <AfisareRezultat matrice={item.matricea} />
+                                        </Col>
+                                        <Col md={3} sm={4} className="marginBottom">
                                             <Row className="justify-content-center">
-                                                <span>{item2}</span>
+                                                <span>{item.semn}</span>
                                             </Row>
                                         </Col>
-                                    )
-                                }
-                                else{
-                                    if(item[1] === 'determinant' || item[1] === 'inversa'){
-                                        if(index===0){
-                                            return(
-                                                <Col md={3} sm={4} key={index} className="marginBottom">
-                                                    <AfisareRezultat matrice={item2} />
-                                                </Col>
-                                            )
-                                        }
-                                        if(index===2){
-                                            return(
-                                                <Col md={3} sm={4} key={index} className="marginBottom">
-                                                    <Row className="justify-content-center">
-                                                        <span>Nu e nevoie</span>
-                                                    </Row>
-                                                </Col>
-                                            )}
-                                        else{
-                                            if(item[1]==='inversa' && index===3){
-                                                return(
-                                                    <Col md={3} sm={4} key={index} className="marginBottom">
-                                                    <AfisareRezultat matrice={item2} />
-                                                </Col>
-                                                )
-                                            }
-                                            else{
-                                                return(
-                                                    <Col md={3} sm={4} key={index} className="marginBottom">
-                                                        <Row className="justify-content-center">
-                                                            <span>{item2}</span>
-                                                        </Row>
-                                                    </Col> 
-                                                )
-                                            }
-                                        }
-                                    }
-                                    if(item[1]==='inmultire cu alfa'){
-                                        if(index===0 || index===3){
-                                            return(
-                                                <Col md={3} sm={4} key={index} className="marginBottom">
-                                                    <AfisareRezultat matrice={item2} />
-                                                </Col>
-                                            )
-                                        }
-                                        if(index===2){
-                                            return(
-                                                <Col md={3} sm={4} key={index} className="marginBottom">
-                                                    <Row className="justify-content-center">
-                                                        <span>{item2}</span>
-                                                    </Row>
-                                                </Col>
-                                            )
-                                        }
-                                    }
-                                    else{
-                                        return(
-                                            <Col md={3} sm={4} key={index} className="marginBottom">
-                                                <AfisareRezultat matrice={item2} />
-                                            </Col>
-                                        )}
-                                }
+                                        <Col md={3} sm={4} className="marginBottom">
+                                        <Row className="justify-content-center">
+                                                <span>{item.matriceb}</span>
+                                            </Row>
+                                        </Col>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <AfisareRezultat matrice={item.matricec} />
+                                        </Col>
+                                    </Row>
+                                )
+                            }
+                            else{
+                                return(
+                                    <Row className="justify-content-center" key={index} style={{borderBottom: '1px solid black', marginTop: '20px'}}>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <AfisareRezultat matrice={item.matricea} />
+                                        </Col>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <Row className="justify-content-center">
+                                                <span>{item.semn}</span>
+                                            </Row>
+                                        </Col>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <Row className="justify-content-center">
+                                                <span>{item.matriceb}</span>
+                                            </Row>
+                                        </Col>
+                                        <Col md={3} sm={4} className="marginBottom">
+                                            <Row className="justify-content-center">
+                                                    <span>{item.matricec}</span>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                )
+                            }
                             
-                            })}
-                        </Row>
-                    )}
+                        }
+                    })}
                 </div>
             </div>
         )

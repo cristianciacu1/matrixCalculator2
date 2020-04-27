@@ -3,16 +3,18 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 import Matrix from '../matrix/matrix';
 import AfisareMatrix from './afisareMatrix';
-import AfisareRezultat from './afisareRezultat';
 import Operatii from './operatii';
+
+import cloneDeep from 'lodash/cloneDeep';
+var concat = require('lodash.concat');
 
 export default class Layout extends React.Component{
 
     constructor(props){
         super(props);
 
-        let matrice1 = new Matrix(3, 1);
-        let matrice2 = new Matrix(3, 2);
+        let matrice1 = new Matrix(3,3, 1);
+        let matrice2 = new Matrix(3,3, 2);
 
         this.state = {
             arraySizeA: 3,
@@ -69,7 +71,7 @@ export default class Layout extends React.Component{
 
     handleSetValue = (i, j, value) => {
         this.state.matriceA.setValoare(i, j, value);
-        //this.state.matriceA.afisare();
+        //this.state.matriceA.afisareConsola();
     }
 
     handleSetValueB = (i, j, value) => {
@@ -85,16 +87,20 @@ export default class Layout extends React.Component{
     }
 
     addRezultateAndState(matriceA, semn, matriceB, matriceC){
-        let rezultateAux = [];
 
-        rezultateAux.push(matriceA);
-        rezultateAux.push(semn);
-        rezultateAux.push(matriceB);
-        rezultateAux.push(matriceC);
+        let lista = {
+            matricea: matriceA,
+            semn: semn,
+            matriceb: matriceB,
+            matricec: matriceC
+        }
+
+        let copie = cloneDeep(this.state.rezultate);
 
         this.setState({
-            rezultate: [rezultateAux, ...this.state.rezultate]
+            rezultate: [lista, copie]
         })
+
     }
 
     handleAdunare = () => {
@@ -107,7 +113,10 @@ export default class Layout extends React.Component{
                 alert('ha ha, nu merge')
             )
 
-        this.addRezultateAndState(this.state.matriceA, '+', this.state.matriceB, matrice3);
+        let matriceAAux = this.state.matriceA;
+        let matriceAuxB = this.state.matriceB;
+
+        this.addRezultateAndState(matriceAAux, '+', matriceAuxB, matrice3);
     }
 
     handleScadere = () => {
@@ -120,7 +129,10 @@ export default class Layout extends React.Component{
                 alert('ha ha, nu merge')
             )
 
-        this.addRezultateAndState(this.state.matriceA, '-', this.state.matriceB, matrice3);
+            let matriceAAux = this.state.matriceA;
+            let matriceBAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceAAux, '-', matriceBAux, matrice3);
     }
 
     handleInmultire = () => {
@@ -133,7 +145,11 @@ export default class Layout extends React.Component{
                 alert('ha ha, nu merge')
             )
 
-        this.addRezultateAndState(this.state.matriceA, '*', this.state.matriceB, matrice3);
+            let matriceAAux = this.state.matriceA;
+            let matriceBAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceAAux, '*', matriceBAux, matrice3);
+
     }
 
     handleImpartire = () => {
@@ -146,17 +162,42 @@ export default class Layout extends React.Component{
                 alert('ha ha, nu merge')
             )
 
-        this.addRezultateAndState(this.state.matriceA, '/', this.state.matriceB, matrice3);
+            let matriceAAux = this.state.matriceA;
+            let matriceBAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceAAux, '/', matriceBAux, matrice3);
     }
 
     handleDeterminantA = () => {
         var x = this.state.matriceA.calcDeterminant();
-        this.addRezultateAndState(this.state.matriceA, 'determinant', 0, x);
+
+        let matriceAAux = this.state.matriceA;
+
+        this.addRezultateAndState(matriceAAux, 'determinant', 'nu e nevoie', x);
     }
 
     handleDeterminantB = () => {
-        var x = this.state.matriceA.calcDeterminant();
-        this.addRezultateAndState(this.state.matriceB, 'determinant', 0, x);
+        var x = this.state.matriceB.calcDeterminant();
+
+        let matriceBAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceBAux, 'determinant', 'nu e nevoie', x);
+    }
+
+    handleRangA = () => {
+        var x = this.state.matriceA.calcRang();
+
+        let matriceAAux = this.state.matriceA;
+
+        this.addRezultateAndState(matriceAAux, 'rang', 'nu e nevoie', x);
+    }
+
+    handleRangB = () => {
+        var x = this.state.matriceB.calcRang();
+
+        let matriceAAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceAAux, 'rang', 'nu e nevoie', x);
     }
 
     handleInversaA = () => {
@@ -169,7 +210,10 @@ export default class Layout extends React.Component{
                 alert('Nu se poate calcula inversa deoarece determinantul este 0')
             )
         }
-        this.addRezultateAndState(this.state.matriceA, 'inversa', 0, matrice3);
+
+        let matriceAAux = this.state.matriceA;
+
+        this.addRezultateAndState(matriceAAux, 'inversa', 'nu e nevoie', matrice3);
     }
 
     handleInversaB = () => {
@@ -182,7 +226,9 @@ export default class Layout extends React.Component{
                 alert('Nu se poate calcula inversa deoarece determinantul este 0')
             )
         }
-        this.addRezultateAndState(this.state.matriceB, 'inversa', 0, matrice3);
+        let matriceBAux = this.state.matriceB;
+
+        this.addRezultateAndState(matriceBAux, 'inversa', 'nu e nevoie', matrice3);
     }
 
     getPlaceHolder = () => {
@@ -204,7 +250,9 @@ export default class Layout extends React.Component{
 
         let x = 'inmultire cu alfa'
 
-        this.addRezultateAndState(this.state.matriceA, x, this.state.alfa, matrice3);
+        let matriceAAux = this.state.matriceA;
+
+        this.addRezultateAndState(matriceAAux, x, this.state.alfa, matrice3);
 
     }
 
@@ -240,6 +288,7 @@ export default class Layout extends React.Component{
                 handleDeterminantB={this.handleDeterminantB} handleInversaA={this.handleInversaA}
                 handleInversaB={this.handleInversaB} getPlaceHolder={this.getPlaceHolder}
                 handleInmultireCuAlfaA={this.handleInmultireCuAlfaA} setAlfa={this.setAlfa}
+                handleRangA={this.handleRangA} handleRangB={this.handleRangB}
                 />
                 
             </Container>

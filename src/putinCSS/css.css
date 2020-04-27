@@ -32,4 +32,8 @@
     .col-sm-4{
         width: 33.33% !important;
     }
+
+    .form-control{
+        width: 70% !important;
+    }
 }
